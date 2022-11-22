@@ -25,11 +25,16 @@ class Socio extends Model
 {
     use SoftDeletes;
 
+    public function getNombreCompletoAttribute()
+    {
+        return $this->nombre . ' ' . $this->apellido;
+    }
+
     static $rules = [
-		'DNI' => 'required|unique:socios,DNI',
-		'nombre' => 'required',
-		'apellido' => 'required',
-		'alta' => 'required',
+        'DNI' => 'required|unique:socios,DNI',
+        'nombre' => 'required',
+        'apellido' => 'required',
+        'alta' => 'required',
     ];
 
     protected $perPage = 20;
@@ -39,7 +44,7 @@ class Socio extends Model
      *
      * @var array
      */
-    protected $fillable = ['DNI','nombre','apellido','alta'];
+    protected $fillable = ['DNI', 'nombre', 'apellido', 'alta'];
 
 
     /**
@@ -50,5 +55,12 @@ class Socio extends Model
         return $this->hasMany('App\Models\Reserva', 'socio_id', 'id');
     }
 
+    public static function boot() {
+        parent::boot();
 
+        static::deleting(function($user) { // before delete() method call this
+             $user->reservas()->delete();
+             // do the rest of the cleanup...
+        });
+    }
 }

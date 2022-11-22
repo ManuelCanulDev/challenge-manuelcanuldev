@@ -46,7 +46,7 @@ class Reserva extends Model
     {
         return $this->hasMany('App\Models\Butaca', 'reserva_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -54,6 +54,15 @@ class Reserva extends Model
     {
         return $this->hasOne('App\Models\Socio', 'id', 'socio_id');
     }
-    
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+             $user->butacas()->delete();
+             // do the rest of the cleanup...
+        });
+    }
+
 
 }

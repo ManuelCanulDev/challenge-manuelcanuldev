@@ -35,7 +35,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 										<th>Socio Id</th>
 										<th>Fecha Reserva</th>
 
@@ -46,8 +46,8 @@
                                     @foreach ($reservas as $reserva)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $reserva->socio_id }}</td>
+
+											<td>{{ $reserva->socio->nombre.' '.$reserva->socio->apellido }}</td>
 											<td>{{ $reserva->fecha_reserva }}</td>
 
                                             <td>

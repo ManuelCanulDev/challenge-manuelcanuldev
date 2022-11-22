@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\Socio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ReservaController
@@ -31,8 +33,14 @@ class ReservaController extends Controller
      */
     public function create()
     {
+        $socios = Socio::select(
+            DB::raw("CONCAT(nombre,' ',apellido) AS name"),'id')
+            ->pluck('name', 'id');
+
+        $elegido = null;
+
         $reserva = new Reserva();
-        return view('reserva.create', compact('reserva'));
+        return view('reserva.create', compact('reserva','socios','elegido'));
     }
 
     /**
@@ -72,9 +80,15 @@ class ReservaController extends Controller
      */
     public function edit($id)
     {
+        $socios = Socio::select(
+            DB::raw("CONCAT(nombre,' ',apellido) AS name"),'id')
+            ->pluck('name', 'id');
+
         $reserva = Reserva::find($id);
 
-        return view('reserva.edit', compact('reserva'));
+        $elegido = $reserva->socio_id;
+
+        return view('reserva.edit', compact('reserva','socios','elegido'));
     }
 
     /**
