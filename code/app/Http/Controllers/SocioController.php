@@ -86,7 +86,12 @@ class SocioController extends Controller
      */
     public function update(Request $request, Socio $socio)
     {
-        request()->validate(Socio::$rules);
+        request()->validate([
+            'DNI' => 'required|unique:socios,DNI,'.$socio->id,
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'alta' => 'required',
+        ]);
 
         $socio->update($request->all());
 

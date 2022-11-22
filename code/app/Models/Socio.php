@@ -26,7 +26,7 @@ class Socio extends Model
     use SoftDeletes;
 
     static $rules = [
-		'DNI' => 'required',
+		'DNI' => 'required|unique:socios,DNI',
 		'nombre' => 'required',
 		'apellido' => 'required',
 		'alta' => 'required',
@@ -49,6 +49,6 @@ class Socio extends Model
     {
         return $this->hasMany('App\Models\Reserva', 'socio_id', 'id');
     }
-    
+
 
 }
