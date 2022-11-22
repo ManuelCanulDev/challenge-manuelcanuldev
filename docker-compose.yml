@@ -31,10 +31,10 @@ services:
       - 8080:80
 
 
-  laravel:
+  thelaravel:
     build:
       context: ./source
-    container_name: laravel
+    container_name: thelaravel
     environment:
       DB_HOST: basededatos
       DB_PORT: 3306
