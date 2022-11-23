@@ -24,10 +24,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::resource('socios', SocioController::class);
+Route::resource('socios', SocioController::class)->middleware('auth');
 
-Route::resource('reservas', ReservaController::class);
+Route::resource('reservas', ReservaController::class)->middleware('auth');
 
-Route::resource('butacas', ButacaController::class);
+Route::resource('butacas', ButacaController::class)->middleware('auth');
