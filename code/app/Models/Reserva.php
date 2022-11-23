@@ -58,9 +58,10 @@ class Reserva extends Model
     public static function boot() {
         parent::boot();
 
-        static::deleting(function($user) { // before delete() method call this
-             $user->butacas()->delete();
-             // do the rest of the cleanup...
+        static::deleting(function($model) { // before delete() method call this
+            foreach ($model->butacas as $butaca) {
+                $butaca->delete();
+            }
         });
     }
 

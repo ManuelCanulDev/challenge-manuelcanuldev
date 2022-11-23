@@ -26,8 +26,15 @@ class Butaca extends Model
 
     static $rules = [
 		'reserva_id' => 'required',
-		'butaca_fila' => 'required',
-		'butaca_columna' => 'required',
+		'butaca_fila' => 'required|unique:butacas,butaca_fila,NULL,id,deleted_at,NULL|integer|between:1,5',
+		'butaca_columna' => 'required|unique:butacas,butaca_columna,NULL,id,deleted_at,NULL|integer|between:1,10',
+    ];
+
+    static $messages = [
+        'butaca_fila.unique' => 'La fila de esta butaca ya ha sido seleccionada',
+        'butaca_columna.unique' => 'La columna de esta butaca ya ha sido seleccionada',
+        'butaca_fila.between' => 'La fila de esta butaca no esta en el rango permitido.',
+        'butaca_columna.between' => 'La columna de esta butaca no esta en el rango permitido.',
     ];
 
     protected $perPage = 20;
@@ -47,6 +54,6 @@ class Butaca extends Model
     {
         return $this->hasOne('App\Models\Reserva', 'id', 'reserva_id');
     }
-    
+
 
 }

@@ -1,9 +1,9 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+
         <div class="form-group">
             {{ Form::label('reserva_id') }}
-            {{ Form::text('reserva_id', $butaca->reserva_id, ['class' => 'form-control' . ($errors->has('reserva_id') ? ' is-invalid' : ''), 'placeholder' => 'Reserva Id']) }}
+            {{ Form::select('reserva_id', $reservas,$elegido, ['class' => 'form-control' . ($errors->has('reserva_id') ? ' is-invalid' : ''), 'placeholder' => 'Reserva Id']) }}
             {!! $errors->first('reserva_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

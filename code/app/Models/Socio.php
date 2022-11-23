@@ -55,12 +55,14 @@ class Socio extends Model
         return $this->hasMany('App\Models\Reserva', 'socio_id', 'id');
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($user) { // before delete() method call this
-             $user->reservas()->delete();
-             // do the rest of the cleanup...
+        static::deleting(function ($model) { // before delete() method call this
+            foreach ($model->reservas as $reserva) {
+                $reserva->delete();
+            }
         });
     }
 }

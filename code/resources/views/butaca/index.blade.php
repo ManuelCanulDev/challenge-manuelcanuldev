@@ -35,7 +35,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 										<th>Reserva Id</th>
 										<th>Butaca Fila</th>
 										<th>Butaca Columna</th>
@@ -47,8 +47,8 @@
                                     @foreach ($butacas as $butaca)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $butaca->reserva_id }}</td>
+
+											<td>{{ $butaca->reserva->fecha_reserva }}</td>
 											<td>{{ $butaca->butaca_fila }}</td>
 											<td>{{ $butaca->butaca_columna }}</td>
 

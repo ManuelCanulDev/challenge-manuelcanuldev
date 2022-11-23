@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Butaca;
+use App\Models\Reserva;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ButacaController
@@ -32,7 +34,15 @@ class ButacaController extends Controller
     public function create()
     {
         $butaca = new Butaca();
-        return view('butaca.create', compact('butaca'));
+
+
+        $reservas = Reserva::select(
+            DB::raw("CONCAT('ID = ',id,' Y FECHA = ',fecha_reserva) AS fecha"),
+            'id'
+        )->pluck('fecha', 'id');
+
+        $elegido = null;
+        return view('butaca.create', compact('butaca', 'reservas', 'elegido'));
     }
 
     /**
@@ -43,7 +53,7 @@ class ButacaController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Butaca::$rules);
+        request()->validate(Butaca::$rules, Butaca::$messages);
 
         $butaca = Butaca::create($request->all());
 
@@ -72,9 +82,20 @@ class ButacaController extends Controller
      */
     public function edit($id)
     {
+
+        $reservas = Reserva::select(
+            DB::raw("CONCAT('ID =',id,' Y FECHA =',fecha_reserva) AS fecha"),
+            'id'
+        )->pluck('fecha', 'id');
+
+
+
+
         $butaca = Butaca::find($id);
 
-        return view('butaca.edit', compact('butaca'));
+        $elegido = $butaca->id;
+
+        return view('butaca.edit', compact('butaca', 'reservas', 'elegido'));
     }
 
     /**
