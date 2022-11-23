@@ -111,7 +111,7 @@ class ButacaController extends Controller
             'reserva_id' => 'required',
             'butaca_fila' => 'required|unique:butacas,butaca_fila,'.$butaca->id.',id,deleted_at,NULL|integer|between:1,5',
             'butaca_columna' => 'required|unique:butacas,butaca_columna,'.$butaca->id.',id,deleted_at,NULL|integer|between:1,10',
-        ]);
+        ],Butaca::$messages);
 
         $butaca->update($request->all());
 

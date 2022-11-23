@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Update Butaca
+    Editar Butaca
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Butaca</span>
+                        <span class="card-title">Editar Butaca</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('butacas.update', $butaca->id) }}"  role="form" enctype="multipart/form-data">

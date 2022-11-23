@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $butaca->name ?? 'Show Butaca' }}
+    {{ $butaca->name ?? 'Ver Butaca' }}
 @endsection
 
 @section('content')
@@ -11,18 +11,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Butaca</span>
+                            <span class="card-title">Ver Butaca</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('butacas.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('butacas.index') }}"> Volver</a>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Reserva Id:</strong>
-                            {{ $butaca->reserva_id }}
+                            {{ $butaca->reserva->fecha_reserva }}
                         </div>
                         <div class="form-group">
                             <strong>Butaca Fila:</strong>
