@@ -6,6 +6,7 @@ use App\Models\Reserva;
 use App\Models\Socio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class ReservaController
@@ -54,6 +55,10 @@ class ReservaController extends Controller
         request()->validate(Reserva::$rules);
 
         $reserva = Reserva::create($request->all());
+
+        $text = "RESERVA REALIZADA ID ".$reserva->id.": ".$reserva->fecha_reserva.' PERTENECIENTE AL USUARIO: '.$reserva->socio->nombre.' '.$reserva->socio->apellido;
+
+        Storage::disk('local')->put('reserva_'.date('Y_m_d_H_i_s').'.log', $text);
 
         return redirect()->route('reservas.index')
             ->with('success', 'Reserva created successfully.');

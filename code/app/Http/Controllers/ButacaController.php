@@ -107,7 +107,11 @@ class ButacaController extends Controller
      */
     public function update(Request $request, Butaca $butaca)
     {
-        request()->validate(Butaca::$rules);
+        request()->validate([
+            'reserva_id' => 'required',
+            'butaca_fila' => 'required|unique:butacas,butaca_fila,'.$butaca->id.',id,deleted_at,NULL|integer|between:1,5',
+            'butaca_columna' => 'required|unique:butacas,butaca_columna,'.$butaca->id.',id,deleted_at,NULL|integer|between:1,10',
+        ]);
 
         $butaca->update($request->all());
 
